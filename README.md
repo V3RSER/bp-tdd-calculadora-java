@@ -7,7 +7,7 @@ La esencia de este taller consiste en un método que dada una cadena delimitada,
 - <s>Dos números, delimitados por comas, devuelven la suma</s>
 - <s>Dos números, delimitados por saltos de línea, devuelve la suma</s>
 - <s>Tres números, delimitados de cualquier manera, devuelven la suma</s>
-- Los números negativos arrojan una excepción
+- <s>Los números negativos arrojan una excepción</s>
 - Los números superiores a 1000 se ignoran
 - Se puede definir un solo delimitador de caracteres en la primera línea (p. Ej., // # para un "#" como delimitador)
 - Se puede definir un delimitador de varios caracteres en la primera línea (p. Ej., // [###] para "###" como delimitador)

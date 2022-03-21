@@ -64,4 +64,21 @@ class CalculadoraCadenaTest {
         assertEquals(resultadoEsperado, calculadora.suma(cadena),
                 () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
     }
+
+    @DisplayName("Los números negativos arrojan una excepción")
+    @ParameterizedTest(name = "{0} = {1}")
+    @CsvSource({
+            "'-1',          'No se permiten números negativos'",
+            "'-2,3',        'No se permiten números negativos'",
+            "'-3,4\n-5',    'No se permiten números negativos'",
+            "'-4\n5\n-6',   'No se permiten números negativos'",
+            "'-6,-4,-5',    'No se permiten números negativos'",
+    })
+    void testNumeroNegativo(String cadena, String resultadoEsperado) {
+        try {
+            calculadora.suma(cadena);
+        } catch (IllegalArgumentException resultado) {
+            assertEquals(resultadoEsperado, resultado.getMessage());
+        }
+    }
 }
