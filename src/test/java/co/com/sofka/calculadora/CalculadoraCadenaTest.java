@@ -81,4 +81,21 @@ class CalculadoraCadenaTest {
             assertEquals(resultadoEsperado, resultado.getMessage());
         }
     }
+
+    @DisplayName(" Los números superiores a 1000 se ignoran")
+    @ParameterizedTest(name = "{0} = {1}")
+    @CsvSource({
+            "'2000',            0",
+            "'2000,2000',       0",
+            "'2000,1',          1",
+            "'2000,1\n2',       3",
+            "'3\n2000\n4',      7",
+            "'5,2000,2000',     5",
+            "'1000,2000,6',     1006",
+
+    })
+    void testNumeroSuperior1000(String cadena, int resultadoEsperado) {
+        assertEquals(resultadoEsperado, calculadora.suma(cadena),
+                () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
+    }
 }

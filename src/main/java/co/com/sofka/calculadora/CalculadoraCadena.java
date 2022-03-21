@@ -14,7 +14,9 @@ public class CalculadoraCadena {
                     throw new IllegalArgumentException("No se permiten números negativos");
                 }
             }
-            return Arrays.stream(valores).reduce(Integer::sum).getAsInt();
+            return Arrays.stream(valores)
+                    .map(valor -> valor <= 1000 ? valor : 0)
+                    .reduce(Integer::sum).getAsInt();
         }
         return 0;
     }
