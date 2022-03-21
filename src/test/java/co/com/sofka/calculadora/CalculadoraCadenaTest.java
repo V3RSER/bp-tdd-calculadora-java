@@ -66,7 +66,7 @@ class CalculadoraCadenaTest {
     }
 
     @DisplayName("Los números negativos arrojan una excepción")
-    @ParameterizedTest(name = "{0} = {1}")
+    @ParameterizedTest(name = "[{0}] = {1}")
     @CsvSource({
             "'-1',          'No se permiten números negativos'",
             "'-2,3',        'No se permiten números negativos'",
@@ -82,8 +82,8 @@ class CalculadoraCadenaTest {
         }
     }
 
-    @DisplayName(" Los números superiores a 1000 se ignoran")
-    @ParameterizedTest(name = "{0} = {1}")
+    @DisplayName("Los números superiores a 1000 se ignoran")
+    @ParameterizedTest(name = "[{0}] = {1}")
     @CsvSource({
             "'2000',            0",
             "'2000,2000',       0",
@@ -92,9 +92,24 @@ class CalculadoraCadenaTest {
             "'3\n2000\n4',      7",
             "'5,2000,2000',     5",
             "'1000,2000,6',     1006",
-
     })
     void testNumeroSuperior1000(String cadena, int resultadoEsperado) {
+        assertEquals(resultadoEsperado, calculadora.suma(cadena),
+                () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
+    }
+
+    @DisplayName("Se puede definir un solo delimitador de caracteres en la primera línea")
+    @ParameterizedTest(name = "[{0}] = {1}")
+    @CsvSource({
+            "'#3000',           0",
+            "'|3000|3000',      0",
+            "'@3000@1',         1",
+            "'\n3000\n1\n2',    3",
+            "'k3k3000k4',       7",
+            "'$3000$3000',      0",
+            "' 1000 3000 6',    1006",
+    })
+    void testDefinirDelimitadorUnCaracter(String cadena, int resultadoEsperado) {
         assertEquals(resultadoEsperado, calculadora.suma(cadena),
                 () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
     }
