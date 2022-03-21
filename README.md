@@ -4,7 +4,7 @@ La esencia de este taller consiste en un método que dada una cadena delimitada,
 
 - <s>Una cadena vacía devuelve cero</s>
 - <s>Un solo número devuelve el valor</s>
-- Dos números, delimitados por comas, devuelven la suma
+- <s>Dos números, delimitados por comas, devuelven la suma</s>
 - Dos números, delimitados por saltos de línea, devuelve la suma
 - Tres números, delimitados de cualquier manera, devuelven la suma
 - Los números negativos arrojan una excepción

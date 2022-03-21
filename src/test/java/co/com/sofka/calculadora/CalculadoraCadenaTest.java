@@ -7,12 +7,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CalculadoraCadenaTest {
+class CalculadoraCadenaTest {
     CalculadoraCadena calculadora = new CalculadoraCadena();
 
     @DisplayName("Una cadena vacía devuelve cero")
     @Test
-    public void testCadenaVacia() {
+    void testCadenaVacia() {
         assertEquals(0, calculadora.suma(""));
     }
 
@@ -23,7 +23,19 @@ public class CalculadoraCadenaTest {
             "1,     1",
             "2,     2",
     })
-    public void testUnNumero(String cadena, int resultadoEsperado) {
+    void testUnNumero(String cadena, int resultadoEsperado) {
+        assertEquals(resultadoEsperado, calculadora.suma(cadena),
+                () -> cadena + " debería devolver " + resultadoEsperado);
+    }
+
+    @DisplayName("Dos números, delimitados por comas, devuelven la suma")
+    @ParameterizedTest(name = "[{0}] = {1}")
+    @CsvSource({
+            "'0,1',     1",
+            "'1,1',     2",
+            "'1,2',     3",
+    })
+    void testDosNumerosComas(String cadena, int resultadoEsperado) {
         assertEquals(resultadoEsperado, calculadora.suma(cadena),
                 () -> cadena + " debería devolver " + resultadoEsperado);
     }
