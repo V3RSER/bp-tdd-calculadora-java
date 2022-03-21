@@ -2,7 +2,7 @@
 ###Calculadora de cadenas para JAVA
 La esencia de este taller consiste en un método que dada una cadena delimitada, devuelve la suma de los valores. Estas son las reglas que debe seguir.
 
-- Una cadena vacía devuelve cero
+- <s>Una cadena vacía devuelve cero</s>
 - Un solo número devuelve el valor
 - Dos números, delimitados por comas, devuelven la suma
 - Dos números, delimitados por saltos de línea, devuelve la suma
