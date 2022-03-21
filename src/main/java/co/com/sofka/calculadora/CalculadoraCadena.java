@@ -11,6 +11,10 @@ public class CalculadoraCadena {
             return Arrays.stream(toArrayInt(cadena.split(",")))
                     .reduce(Integer::sum).getAsInt();
         }
+        if (cadena.split("\n").length >= 2) {
+            return Arrays.stream(toArrayInt(cadena.split("\n")))
+                    .reduce(Integer::sum).getAsInt();
+        }
         return 0;
     }
 

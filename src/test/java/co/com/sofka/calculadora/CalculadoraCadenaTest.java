@@ -35,8 +35,20 @@ class CalculadoraCadenaTest {
             "'1,1',     2",
             "'1,2',     3",
     })
-    void testDosNumerosComas(String cadena, int resultadoEsperado) {
+    void testDosNumerosSeparadosComas(String cadena, int resultadoEsperado) {
         assertEquals(resultadoEsperado, calculadora.suma(cadena),
-                () -> cadena + " debería devolver " + resultadoEsperado);
+                () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
+    }
+
+    @DisplayName("Dos números, delimitados por saltos de línea, devuelve la suma")
+    @ParameterizedTest(name = "[{0}] = {1}")
+    @CsvSource({
+            "'0\n1',     1",
+            "'1\n1',     2",
+            "'1\n2',     3",
+    })
+    void testDosNumerosSeparadosSaltosLinea(String cadena, int resultadoEsperado) {
+        assertEquals(resultadoEsperado, calculadora.suma(cadena),
+                () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
     }
 }
