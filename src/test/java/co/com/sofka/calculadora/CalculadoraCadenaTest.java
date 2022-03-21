@@ -51,4 +51,17 @@ class CalculadoraCadenaTest {
         assertEquals(resultadoEsperado, calculadora.suma(cadena),
                 () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
     }
+
+    @DisplayName("Tres números, delimitados de cualquier manera, devuelven la suma")
+    @ParameterizedTest(name = "[{0}] = {1}")
+    @CsvSource({
+            "'0\n1,2',      3",
+            "'1,2\n3',      6",
+            "'2\n3\n4',     9",
+            "'3,4,5',       12",
+    })
+    void testTresNumerosSeparadosCualesquiera(String cadena, int resultadoEsperado) {
+        assertEquals(resultadoEsperado, calculadora.suma(cadena),
+                () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
+    }
 }

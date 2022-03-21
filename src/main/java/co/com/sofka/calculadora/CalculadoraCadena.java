@@ -4,16 +4,9 @@ import java.util.Arrays;
 
 public class CalculadoraCadena {
     public int suma(String cadena) {
-        if (cadena.length() == 1) {
-            return Integer.parseInt(cadena);
-        }
-        if (cadena.split(",").length >= 2) {
-            return Arrays.stream(toArrayInt(cadena.split(",")))
-                    .reduce(Integer::sum).getAsInt();
-        }
-        if (cadena.split("\n").length >= 2) {
-            return Arrays.stream(toArrayInt(cadena.split("\n")))
-                    .reduce(Integer::sum).getAsInt();
+        if (cadena.length() > 0) {
+            int[] valores = toArrayInt(cadena.split("[,|\n]"));
+            return Arrays.stream(valores).reduce(Integer::sum).getAsInt();
         }
         return 0;
     }
