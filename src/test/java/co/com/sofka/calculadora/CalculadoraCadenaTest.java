@@ -113,4 +113,20 @@ class CalculadoraCadenaTest {
         assertEquals(resultadoEsperado, calculadora.suma(cadena),
                 () -> "[" + cadena + "]" + " debería devolver " + resultadoEsperado);
     }
+
+    @DisplayName("Se puede definir un delimitador de varios caracteres en la primera línea")
+    @ParameterizedTest(name = "{0} = {1}")
+    @CsvSource({
+            "'[###]3000',                       0",
+            "'[||]3000||3000',                  0",
+            "'[@@@@]3000@@@@1',                 1",
+            "'[\n\n\n]3000\n\n\n1\n\n\n2',      3",
+            "'[kkk]3kkk3000kkk4',               7",
+            "'[$]3000$3000$5',                  5",
+            "'[     ]1000     3000     6',      1006",
+    })
+    void testDefinirDelimitadorVariosCaracteres(String cadena, int resultadoEsperado) {
+        assertEquals(resultadoEsperado, calculadora.suma(cadena),
+                () -> "" + cadena + "" + " debería devolver " + resultadoEsperado);
+    }
 }

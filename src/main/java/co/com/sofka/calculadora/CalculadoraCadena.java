@@ -7,16 +7,22 @@ public class CalculadoraCadena {
 
     public int suma(String cadena) {
         if (cadena.length() > 0) {
-            String[] valoresCadena;
+            String[] cadenaSeparada;
             if (Character.isDigit(cadena.charAt(0)) || cadena.charAt(0) == '-') {
-                valoresCadena = cadena.split("[" + SEPARADOR_DEFECTO + "|\n]");
+                cadenaSeparada = cadena.split("[" + SEPARADOR_DEFECTO + "|\n]");
             } else {
-                valoresCadena = validarCaracteres(cadena).substring(1).split(cadena.substring(0, 1));
+                String cadenaValidada = validarCaracteres(cadena);
+                if (cadena.charAt(0) == '[') {
+                    cadenaSeparada = cadenaValidada.substring(cadenaValidada.indexOf(']') + 1)
+                            .split(cadenaValidada.substring(1, cadenaValidada.indexOf(']')));
+                } else {
+                    cadenaSeparada = cadenaValidada.substring(1).split(cadenaValidada.substring(0, 1));
+                }
             }
 
-            int[] valores = new int[valoresCadena.length];
-            for (int i = 0; i < valoresCadena.length; i++) {
-                valores[i] = Integer.parseInt(valoresCadena[i]);
+            int[] valores = new int[cadenaSeparada.length];
+            for (int i = 0; i < cadenaSeparada.length; i++) {
+                valores[i] = Integer.parseInt(cadenaSeparada[i]);
                 if (valores[i] < 0) {
                     throw new IllegalArgumentException("No se permiten números negativos");
                 }
@@ -31,7 +37,7 @@ public class CalculadoraCadena {
     }
 
     public String validarCaracteres(String cadena) {
-        return switch (cadena.charAt(0)) {
+        return switch (cadena.charAt(0) == '[' ? cadena.charAt(1) : cadena.charAt(0)) {
             case '^' -> cadena.replace('^', SEPARADOR_DEFECTO);
             case '$' -> cadena.replace('$', SEPARADOR_DEFECTO);
             case '.' -> cadena.replace('.', SEPARADOR_DEFECTO);
