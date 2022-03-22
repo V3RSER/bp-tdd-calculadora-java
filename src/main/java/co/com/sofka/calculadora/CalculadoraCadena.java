@@ -1,39 +1,43 @@
 package co.com.sofka.calculadora;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class CalculadoraCadena {
-    private final char SEPARADOR_DEFECTO = ',';
+    private static final char SEPARADOR_DEFECTO = ',';
 
     public int suma(String cadena) {
-        if (cadena.length() > 0) {
-            String[] cadenaSeparada;
+        String[] cadenaSeparada;
+        try {
             if (Character.isDigit(cadena.charAt(0)) || cadena.charAt(0) == '-') {
-                cadenaSeparada = cadena.split("[" + SEPARADOR_DEFECTO + "|\n]");
+                cadenaSeparada = cadena
+                        .split("[" + SEPARADOR_DEFECTO + "|\n]");
             } else {
                 String cadenaValidada = validarCaracteres(cadena);
                 if (cadena.charAt(0) == '[') {
                     cadenaSeparada = cadenaValidada.substring(cadenaValidada.indexOf(']') + 1)
                             .split(cadenaValidada.substring(1, cadenaValidada.indexOf(']')));
                 } else {
-                    cadenaSeparada = cadenaValidada.substring(1).split(cadenaValidada.substring(0, 1));
+                    cadenaSeparada = cadenaValidada.substring(1)
+                            .split(cadenaValidada.substring(0, 1));
                 }
             }
-
-            int[] valores = new int[cadenaSeparada.length];
-            for (int i = 0; i < cadenaSeparada.length; i++) {
-                valores[i] = Integer.parseInt(cadenaSeparada[i]);
-                if (valores[i] < 0) {
-                    throw new IllegalArgumentException("No se permiten números negativos");
-                }
-            }
-
-            return Arrays.stream(valores)
-                    .map(valor -> valor <= 1000 ? valor : 0)
-                    .reduce(Integer::sum)
-                    .getAsInt();
+        } catch (Exception e) {
+            cadenaSeparada = new String[]{"0"};
         }
-        return 0;
+
+        return Arrays.stream(
+                        Stream.of(cadenaSeparada)
+                                .mapToInt(Integer::parseInt)
+                                .boxed()
+                                .toArray(Integer[]::new))
+                .map(valor -> {
+                    if (valor < 0) {
+                        throw new IllegalArgumentException("No se permiten números negativos");
+                    }
+                    return valor <= 1000 ? valor : 0;
+                })
+                .reduce(Integer::sum).get();
     }
 
     public String validarCaracteres(String cadena) {
